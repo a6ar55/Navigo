@@ -1,4 +1,3 @@
-
 import { ReactNode } from 'react';
 
 export interface TripData {
@@ -31,9 +30,7 @@ export interface GeneratedItinerary {
 export interface DayItinerary {
   date: string;
   weather: string;
-  morning: Activity[];
-  afternoon: Activity[];
-  evening: Activity[];
+  activities: Activity[];
 }
 
 export interface Activity {
@@ -42,7 +39,23 @@ export interface Activity {
   description: string;
   location: string;
   cost: number;
+  duration?: string;
+  popularityScore?: number;
+  category?: string;
   weatherDependent: boolean;
+  bestTimeToVisit?: string;
+  tips?: string;
+  mealSuggestion?: MealSuggestion;
+}
+
+export interface MealSuggestion {
+  name: string;
+  cuisine: string;
+  dietaryOptions: string[];
+  priceRange: string;
+  specialties: string;
+  walkingDistance?: string;
+  bestTimeToBeat?: string;
 }
 
 export interface Accommodation {
@@ -56,6 +69,8 @@ export interface Accommodation {
     name: string;
     icon: ReactNode;
   }[];
+  nearbyAttractions?: string[];
+  transportationOptions?: string[];
 }
 
 export interface TransportOptions {
@@ -64,6 +79,7 @@ export interface TransportOptions {
   car?: TransportOption[];
   bus?: TransportOption[];
   publicTransit?: TransportOption[];
+  localTransportation?: LocalTransportation[];
 }
 
 export interface TransportOption {
@@ -76,24 +92,57 @@ export interface TransportOption {
   departureLocation: string;
   arrivalLocation: string;
   details: string;
+  recommendedBookingTime?: string;
+}
+
+export interface LocalTransportation {
+  type: string;
+  coverage: string;
+  costPerTrip: number;
+  dayPassOption: number;
+  frequency: string;
+  operatingHours: string;
+  accessibility: string;
+  tipsForTravelers: string;
 }
 
 export interface BudgetBreakdown {
   totalBudget: number;
   totalSpent: number;
-  categories: {
-    name: string;
-    amount: number;
-    percentage: number;
-  }[];
+  categories: BudgetCategory[];
   contingencyAmount: number;
+  localCurrencyInfo?: LocalCurrencyInfo;
+}
+
+export interface BudgetCategory {
+  name: string;
+  amount: number;
+  percentage: number;
+  itemizedCosts?: ItemizedCost[];
+  savingTips?: string;
+}
+
+export interface ItemizedCost {
+  item: string;
+  cost: number;
+}
+
+export interface LocalCurrencyInfo {
+  currency: string;
+  exchangeRate: string;
+  paymentTips: string;
 }
 
 export interface PackingCategory {
-  name: string;
+  category: string;
   icon: ReactNode;
-  items: {
-    name: string;
-    essential: boolean;
-  }[];
+  items: PackingItem[];
+  categoryNotes?: string;
+}
+
+export interface PackingItem {
+  name: string;
+  essential: boolean;
+  weatherConsideration?: string | null;
+  packingTip?: string;
 }

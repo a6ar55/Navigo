@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, DollarSign, Star, Wifi, Coffee, Car } from 'lucide-react';
+import { MapPin, DollarSign, Star, Wifi, Coffee, Car, Landmark, Bus } from 'lucide-react';
 
 interface Amenity {
   name: string;
@@ -17,6 +16,8 @@ interface Accommodation {
   rating: number;
   image: string;
   amenities: Amenity[];
+  nearbyAttractions?: string[];
+  transportationOptions?: string[];
 }
 
 interface AccommodationSectionProps {
@@ -76,6 +77,42 @@ const AccommodationCard: React.FC<{ accommodation: Accommodation }> = ({ accommo
             </Badge>
           ))}
         </div>
+        
+        {/* Nearby Attractions */}
+        {accommodation.nearbyAttractions && accommodation.nearbyAttractions.length > 0 && (
+          <div className="mt-3 border-t pt-3">
+            <h5 className="text-sm font-medium flex items-center mb-2">
+              <Landmark className="h-4 w-4 text-indigo-500 mr-2" />
+              Nearby Attractions
+            </h5>
+            <ul className="grid grid-cols-1 gap-2">
+              {accommodation.nearbyAttractions.map((attraction, index) => (
+                <li key={index} className="text-xs text-gray-600 flex items-start">
+                  <span className="text-indigo-600 mr-2">•</span>
+                  {attraction}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        
+        {/* Transportation Options */}
+        {accommodation.transportationOptions && accommodation.transportationOptions.length > 0 && (
+          <div className="mt-3 border-t pt-3">
+            <h5 className="text-sm font-medium flex items-center mb-2">
+              <Bus className="h-4 w-4 text-emerald-500 mr-2" />
+              Transportation Access
+            </h5>
+            <ul className="grid grid-cols-1 gap-2">
+              {accommodation.transportationOptions.map((option, index) => (
+                <li key={index} className="text-xs text-gray-600 flex items-start">
+                  <span className="text-emerald-600 mr-2">•</span>
+                  {option}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         
         <div className="flex items-center justify-between mt-4">
           <div className="font-semibold text-travel-dark">

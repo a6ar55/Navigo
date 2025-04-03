@@ -123,6 +123,42 @@ ${tripData.dietaryRestrictions ? `Dietary Restrictions: ${tripData.dietaryRestri
 ${tripData.accessibility ? `Accessibility Needs: ${tripData.accessibility.join(', ')}` : ''}
 Transportation: ${tripData.transportation.join(', ')}
 
+IMPORTANT PLANNING STRATEGY:
+1. First, identify the key attractions and points of interest in ${tripData.destination}, prioritizing based on:
+   - Popularity and significance
+   - Alignment with traveler preferences
+   - Variety of experiences
+
+2. For each attraction, determine:
+   - Average visit duration
+   - Best time of day to visit
+   - Proximity to other attractions
+   - Required travel time between locations
+
+3. Create a logical daily plan by:
+   - Grouping nearby attractions to minimize travel time
+   - Balancing must-see major attractions with lesser-known experiences
+   - Considering opening hours and peak/off-peak times
+   - Allocating appropriate time for each attraction based on its size and significance
+   - Including strategic meal breaks at optimal times with local food recommendations
+
+4. Instead of rigidly dividing each day into morning/afternoon/evening:
+   - Create a dynamic, flowing schedule that respects the natural timing each activity requires
+   - Space activities to avoid rushing while maintaining an engaging pace
+   - Include buffer time for spontaneous exploration and rest
+   - Balance busy days with more relaxed ones
+
+5. Ensure each day's plan is:
+   - Geographically logical to minimize unnecessary travel
+   - Varied in terms of activities (mix of cultural, historical, natural, etc.)
+   - Realistic in terms of timing and energy levels
+   - Adaptable to weather conditions where relevant
+
+6. Ensure accommodations are conveniently located near planned activities
+7. Provide detailed transportation options between locations
+8. Create a realistic budget breakdown based on actual costs
+9. Craft a comprehensive packing list tailored to the destination's climate, planned activities, and trip duration
+
 IMPORTANT: Respond with a valid JSON object that follows this exact structure:
 
 {
@@ -130,39 +166,62 @@ IMPORTANT: Respond with a valid JSON object that follows this exact structure:
   "startDate": "${tripData.startDate.toLocaleDateString()}",
   "endDate": "${tripData.endDate.toLocaleDateString()}",
   "travelers": ${tripData.travelers},
-  "weatherSummary": "Brief weather summary for the trip",
+  "weatherSummary": "Comprehensive weather summary for the trip period, including temperature ranges, precipitation forecasts, and seasonal considerations",
   "dailyItinerary": [
     {
       "date": "Day 1 - ${tripData.startDate.toLocaleDateString()}",
-      "weather": "Weather forecast for this day",
-      "morning": [
+      "weather": "Detailed weather forecast for this specific day",
+      "activities": [
         {
-          "time": "8:00 AM - 10:00 AM",
+          "time": "8:00 AM - 10:30 AM",
           "name": "Activity name",
-          "description": "Detailed description",
-          "location": "Location name",
+          "description": "Detailed description including historical/cultural significance, what to expect, and insider tips",
+          "location": "Precise location with neighborhood or area",
           "cost": 25,
-          "weatherDependent": true
-        }
-      ],
-      "afternoon": [
+          "duration": "2.5 hours",
+          "popularityScore": 9.2,
+          "category": "Museum",
+          "weatherDependent": true,
+          "bestTimeToVisit": "Early morning to avoid crowds",
+          "tips": "Don't miss the special exhibit on the third floor",
+          "mealSuggestion": {
+            "name": "Local restaurant or meal suggestion",
+            "cuisine": "Type of cuisine",
+            "dietaryOptions": ["Vegetarian", "Gluten-free"],
+            "priceRange": "$$",
+            "specialties": "Signature dishes to try",
+            "walkingDistance": "5 minutes from the attraction"
+          }
+        },
         {
-          "time": "12:00 PM - 2:00 PM",
-          "name": "Activity name",
+          "time": "11:00 AM - 12:30 PM",
+          "name": "Another activity",
           "description": "Detailed description",
-          "location": "Location name",
-          "cost": 30,
-          "weatherDependent": false
-        }
-      ],
-      "evening": [
+          "location": "Precise location",
+          "cost": 15,
+          "duration": "1.5 hours",
+          "popularityScore": 8.5,
+          "category": "Historical Site",
+          "weatherDependent": false,
+          "bestTimeToVisit": "Midday for best lighting",
+          "tips": "The guided tour is worth the extra cost"
+        },
         {
-          "time": "7:00 PM - 9:00 PM",
-          "name": "Activity name",
-          "description": "Detailed description",
-          "location": "Location name",
-          "cost": 45,
-          "weatherDependent": false
+          "time": "12:30 PM - 2:00 PM",
+          "name": "Lunch break",
+          "description": "Relaxing lunch at a popular local spot",
+          "location": "Restaurant location",
+          "cost": 25,
+          "duration": "1.5 hours",
+          "category": "Dining",
+          "mealSuggestion": {
+            "name": "Restaurant name",
+            "cuisine": "Local cuisine",
+            "dietaryOptions": ["Vegetarian", "Gluten-free"],
+            "priceRange": "$$",
+            "specialties": "Signature dishes",
+            "bestTimeToBeat": "Before 12:30 PM to avoid the lunch rush"
+          }
         }
       ]
     }
@@ -170,8 +229,8 @@ IMPORTANT: Respond with a valid JSON object that follows this exact structure:
   "accommodations": [
     {
       "name": "Hotel name",
-      "description": "Description of hotel",
-      "location": "Address",
+      "description": "Comprehensive description of hotel, including why it was selected for this trip",
+      "location": "Address with proximity to key attractions",
       "price": 150,
       "rating": 4.5,
       "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
@@ -182,7 +241,9 @@ IMPORTANT: Respond with a valid JSON object that follows this exact structure:
         {
           "name": "Breakfast included"
         }
-      ]
+      ],
+      "nearbyAttractions": ["Attraction 1", "Attraction 2"],
+      "transportationOptions": ["5-minute walk to metro station", "Bus stop outside hotel"]
     }
   ],
   "transportOptions": {
@@ -194,9 +255,22 @@ IMPORTANT: Respond with a valid JSON object that follows this exact structure:
         "arrivalTime": "12:00 PM",
         "duration": "2 hours",
         "price": 300,
-        "departureLocation": "Origin airport",
-        "arrivalLocation": "Destination airport",
-        "details": "Flight details"
+        "departureLocation": "Origin airport with terminal information",
+        "arrivalLocation": "Destination airport with terminal information",
+        "details": "Comprehensive flight details including baggage allowance, in-flight amenities, and transfer information",
+        "recommendedBookingTime": "2-3 months in advance for best rates"
+      }
+    ],
+    "localTransportation": [
+      {
+        "type": "metro",
+        "coverage": "Areas covered by this transportation option",
+        "costPerTrip": 2.50,
+        "dayPassOption": 10.00,
+        "frequency": "Every 5-10 minutes",
+        "operatingHours": "5:00 AM - 12:00 AM",
+        "accessibility": "Wheelchair accessible at most stations",
+        "tipsForTravelers": "Purchase a multi-day pass to save money"
       }
     ],
     "train": [],
@@ -211,171 +285,243 @@ IMPORTANT: Respond with a valid JSON object that follows this exact structure:
       {
         "name": "Accommodation",
         "amount": 500,
-        "percentage": 50
+        "percentage": 50,
+        "itemizedCosts": [
+          {"item": "Hotel for 5 nights", "cost": 400},
+          {"item": "Airport hotel 1 night", "cost": 100}
+        ],
+        "savingTips": "Book in advance for 15% discount"
       },
       {
         "name": "Food",
         "amount": 300,
-        "percentage": 30
+        "percentage": 30,
+        "itemizedCosts": [
+          {"item": "Breakfast (included in hotel)", "cost": 0},
+          {"item": "Lunch (avg $15/person/day)", "cost": 150},
+          {"item": "Dinner (avg $25/person/day)", "cost": 150}
+        ],
+        "savingTips": "Lunch specials offer best value"
       },
       {
         "name": "Activities",
         "amount": 200,
-        "percentage": 20
+        "percentage": 20,
+        "itemizedCosts": [
+          {"item": "Museum passes", "cost": 80},
+          {"item": "Guided tour", "cost": 120}
+        ],
+        "savingTips": "City Pass offers 20% discount on major attractions"
       }
     ],
-    "contingencyAmount": 100
+    "contingencyAmount": 100,
+    "localCurrencyInfo": {
+      "currency": "Euro",
+      "exchangeRate": "1 USD = 0.92 EUR",
+      "paymentTips": "Credit cards widely accepted, but carry some cash for small vendors"
+    }
   },
   "packingList": [
     {
       "category": "Clothing",
-      "items": ["T-shirts", "Pants", "Underwear", "Socks"]
+      "items": [
+        {
+          "name": "T-shirts (5)",
+          "essential": true,
+          "weatherConsideration": "Lightweight, breathable fabric for warm weather",
+          "packingTip": "Roll instead of fold to save space"
+        },
+        {
+          "name": "Pants (2)",
+          "essential": true,
+          "weatherConsideration": "One lightweight, one warmer for evenings",
+          "packingTip": "Wear the heavier pair during travel to save luggage space"
+        }
+      ],
+      "categoryNotes": "Choose moisture-wicking, quick-dry items that can be layered"
     },
     {
-      "category": "Toiletries",
-      "items": ["Toothbrush", "Toothpaste", "Shampoo"]
+      "category": "Electronics",
+      "items": [
+        {
+          "name": "Universal power adapter",
+          "essential": true,
+          "weatherConsideration": null,
+          "packingTip": "Check voltage compatibility with your devices"
+        }
+      ],
+      "categoryNotes": "Keep in carry-on luggage, not checked bags"
     }
   ]
 }
 
-The JSON must be valid. Include realistic data for ${tripData.destination} with appropriate costs, activities, and accommodations for a ${tripData.budget} budget. Create daily activities for all ${daysCount} days of the trip.
+The JSON must be valid. Include realistic, detailed, and accurate data for ${tripData.destination} with appropriate costs, activities, and accommodations for a ${tripData.budget} budget. Create daily activities for all ${daysCount} days of the trip. Prioritize attractions based on popularity and relevance, and organize days efficiently to minimize travel time. Structure each day with a dynamic schedule based on the natural duration and optimal timing for each activity. Include specific local food recommendations that respect any dietary restrictions.
 `;
 };
 
 // Parse the LLM response to our expected itinerary format
 const parseResponseToItinerary = (response: any, tripData: TripData): GeneratedItinerary => {
   try {
-    console.log('Parsing LLM response...');
+    // Find JSON content in the response
+    let jsonContent = response;
     
-    // Extract the text content from the response
-    let textContent = '';
-    
+    // Try to extract JSON if it's embedded in text
     if (typeof response === 'string') {
-      textContent = response;
-    } else if (Array.isArray(response)) {
-      textContent = response[0]?.text || JSON.stringify(response);
-    } else if (response && typeof response.text === 'string') {
-      textContent = response.text;
-    } else {
-      textContent = JSON.stringify(response);
-    }
-    
-    console.log('Extracted text content length:', textContent.length);
-    console.log('Sample of content:', textContent.substring(0, 300) + '...');
-    
-    // Different regex patterns to try
-    const patterns = [
-      /```json\s*([\s\S]*?)\s*```/,   // JSON in code block with json tag
-      /```\s*([\s\S]*?)\s*```/,       // JSON in code block without tag
-      /(\{[\s\S]*\})/,                // Find content between curly braces
-    ];
-    
-    let jsonText = '';
-    let foundMatch = false;
-    
-    // Try each pattern until we find a match
-    for (const pattern of patterns) {
-      const match = textContent.match(pattern);
-      if (match && match[1]) {
-        jsonText = match[1].trim();
-        console.log(`Found match with pattern: ${pattern}`);
-        foundMatch = true;
-        break;
+      const jsonRegex = /{[\s\S]*}/;
+      const match = response.match(jsonRegex);
+      
+      if (match && match[0]) {
+        jsonContent = match[0];
       }
     }
     
-    // If no pattern matched, use the entire text
-    if (!foundMatch) {
-      console.log('No regex pattern matched, using entire text');
-      jsonText = textContent.trim();
-    }
-    
-    // Clean up common issues
-    jsonText = jsonText
-      .replace(/\\"/g, '"')  // Replace escaped quotes
-      .replace(/\\n/g, ' ')  // Replace newlines
-      .replace(/\\t/g, ' ')  // Replace tabs
-      .replace(/\s*"\s*:\s*"/g, '":"')  // Fix spacing in key-value pairs
-      .replace(/\s*"\s*:\s*\{/g, '":{')
-      .replace(/\s*"\s*:\s*\[/g, '":[')
-      .replace(/\s*"\s*:\s*([0-9])/g, '":$1');
-      
-    // Attempt to fix common JSON syntax issues
-    if (!jsonText.startsWith('{')) {
-      console.log('Adding starting brace');
-      jsonText = '{' + jsonText;
-    }
-    if (!jsonText.endsWith('}')) {
-      console.log('Adding ending brace');
-      jsonText = jsonText + '}';
-    }
-    
-    console.log('Cleaned JSON text:', jsonText.substring(0, 300) + '...');
-    
-    // Try to parse the JSON
-    let parsedData: any = {};
+    // Parse the JSON content
+    let parsedData;
     try {
-      parsedData = JSON.parse(jsonText);
-      console.log('Successfully parsed JSON');
-    } catch (parseError) {
-      console.error('Failed to parse JSON, error:', parseError);
-      
-      // If parsing fails, attempt more aggressive cleaning
-      try {
-        console.log('Attempting to fix malformed JSON');
-        // Sometimes the model adds extra text after the JSON
-        const fixedJson = jsonText.replace(/\}\s*[\s\S]*$/, '}');
-        parsedData = JSON.parse(fixedJson);
-        console.log('Successfully parsed JSON after fixing');
-      } catch (secondError) {
-        console.error('All parsing attempts failed.');
-        console.error('JSON text that failed parsing:', jsonText);
-        
-        // Instead of throwing, proceed with an empty object
-        parsedData = {};
-        console.log('Proceeding with empty data object');
-      }
+      parsedData = typeof jsonContent === 'string' ? JSON.parse(jsonContent) : jsonContent;
+    } catch (error) {
+      console.error('Error parsing JSON:', error);
+      throw new Error('Failed to parse itinerary data from API response');
     }
     
-    // Create a minimal daily itinerary if none exists
+    // Create default activities for fallback
+    const defaultActivity = {
+      time: "Not specified",
+      name: "Activity data not available",
+      description: "No details available",
+      location: "Location not specified",
+      cost: 0,
+      duration: "Not specified",
+      category: "Activity",
+      weatherDependent: false,
+      mealSuggestion: null
+    };
+    
+    // Ensure activities have the correct format
+    const ensureActivitiesFormat = (activities: any[]): any[] => {
+      return activities.map(activity => ({
+        time: activity.time || "Time not specified",
+        name: activity.name || "Activity name not available",
+        description: activity.description || "No description available",
+        location: activity.location || "Location not specified",
+        cost: typeof activity.cost === 'number' ? activity.cost : 0,
+        duration: activity.duration || null,
+        popularityScore: typeof activity.popularityScore === 'number' ? activity.popularityScore : null,
+        category: activity.category || null,
+        weatherDependent: Boolean(activity.weatherDependent),
+        bestTimeToVisit: activity.bestTimeToVisit || null,
+        tips: activity.tips || null,
+        mealSuggestion: activity.mealSuggestion ? {
+          name: activity.mealSuggestion.name || "Restaurant not specified",
+          cuisine: activity.mealSuggestion.cuisine || "Cuisine not specified",
+          dietaryOptions: Array.isArray(activity.mealSuggestion.dietaryOptions) ? 
+            activity.mealSuggestion.dietaryOptions : [],
+          priceRange: activity.mealSuggestion.priceRange || "$$",
+          specialties: activity.mealSuggestion.specialties || "Not specified",
+          walkingDistance: activity.mealSuggestion.walkingDistance || null,
+          bestTimeToBeat: activity.mealSuggestion.bestTimeToBeat || null
+        } : null
+      }));
+    };
+    
+    // Create default daily itinerary if needed
     const startDate = new Date(tripData.startDate);
     const endDate = new Date(tripData.endDate);
     const dayCount = Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24)) + 1;
     
     const defaultDailyItinerary: DayItinerary[] = [];
+    
     for (let i = 0; i < dayCount; i++) {
       const currentDate = new Date(startDate);
       currentDate.setDate(startDate.getDate() + i);
       
       defaultDailyItinerary.push({
         date: `Day ${i + 1} - ${currentDate.toLocaleDateString()}`,
-        weather: "Data not available",
-        morning: [{
-          time: "Morning",
-          name: "Data not available",
-          description: "Data could not be generated. Please try again later.",
-          location: "N/A",
-          cost: 0,
-          weatherDependent: false
-        }],
-        afternoon: [{
-          time: "Afternoon",
-          name: "Data not available",
-          description: "Data could not be generated. Please try again later.",
-          location: "N/A",
-          cost: 0,
-          weatherDependent: false
-        }],
-        evening: [{
-          time: "Evening",
-          name: "Data not available",
-          description: "Data could not be generated. Please try again later.",
-          location: "N/A",
-          cost: 0,
-          weatherDependent: false
-        }]
+        weather: "Weather data not available",
+        activities: [defaultActivity]
       });
     }
+    
+    // Process accommodations to ensure they have the right structure
+    const processAccommodations = (accommodations: any[]): any[] => {
+      return accommodations.map(acc => ({
+        name: acc.name || "Accommodation data not available",
+        description: acc.description || "Description not available",
+        location: acc.location || "Location not specified",
+        price: typeof acc.price === 'number' ? acc.price : 0,
+        rating: typeof acc.rating === 'number' ? acc.rating : 0,
+        image: acc.image || "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+        amenities: (acc.amenities || []).map((amenity: any) => ({
+          name: typeof amenity === 'string' ? amenity : (amenity.name || "Amenity"),
+          icon: null // Will be processed later
+        })),
+        nearbyAttractions: Array.isArray(acc.nearbyAttractions) ? acc.nearbyAttractions : [],
+        transportationOptions: Array.isArray(acc.transportationOptions) ? acc.transportationOptions : []
+      }));
+    };
+    
+    // Process budget categories to ensure they have the right structure
+    const processBudgetCategories = (categories: any[]): any[] => {
+      return categories.map(category => ({
+        name: category.name || "Budget category",
+        amount: typeof category.amount === 'number' ? category.amount : 0,
+        percentage: typeof category.percentage === 'number' ? category.percentage : 0,
+        itemizedCosts: Array.isArray(category.itemizedCosts) ? category.itemizedCosts.map((item: any) => ({
+          item: item.item || "Item not specified",
+          cost: typeof item.cost === 'number' ? item.cost : 0
+        })) : undefined,
+        savingTips: category.savingTips || undefined
+      }));
+    };
+    
+    // Process packing list to ensure it has the right structure
+    const processPackingList = (packingList: any[]): any[] => {
+      return packingList.map(category => {
+        // Process items based on whether they're simple strings or complex objects
+        const processedItems = Array.isArray(category.items) ? category.items.map((item: any) => {
+          if (typeof item === 'string') {
+            // Convert simple string items to the new format
+            return {
+              name: item,
+              essential: false,
+              weatherConsideration: null,
+              packingTip: null
+            };
+          } else {
+            // Process complex object items
+            return {
+              name: item.name || "Item not specified",
+              essential: Boolean(item.essential),
+              weatherConsideration: item.weatherConsideration || null,
+              packingTip: item.packingTip || null
+            };
+          }
+        }) : [{ name: "Data not available", essential: false, weatherConsideration: null, packingTip: null }];
+        
+        return {
+          category: category.category || category.name || "Packing category",
+          items: processedItems,
+          icon: null, // Will be processed later
+          categoryNotes: category.categoryNotes || null
+        };
+      });
+    };
+    
+    // Handle local transportation
+    const processLocalTransportation = (localTransport: any[]): any[] => {
+      if (!Array.isArray(localTransport)) return [];
+      
+      return localTransport.map(transport => ({
+        type: transport.type || "Not specified",
+        coverage: transport.coverage || "Not specified",
+        costPerTrip: typeof transport.costPerTrip === 'number' ? transport.costPerTrip : 0,
+        dayPassOption: typeof transport.dayPassOption === 'number' ? transport.dayPassOption : 0,
+        frequency: transport.frequency || "Not specified",
+        operatingHours: transport.operatingHours || "Not specified",
+        accessibility: transport.accessibility || "Not specified",
+        tipsForTravelers: transport.tipsForTravelers || "Not specified"
+      }));
+    };
     
     // Build the itinerary object with fallbacks for missing data
     const itinerary: GeneratedItinerary = {
@@ -390,47 +536,22 @@ const parseResponseToItinerary = (response: any, tripData: TripData): GeneratedI
         parsedData.dailyItinerary.map((day: any) => ({
           date: day.date || "Date not specified",
           weather: day.weather || "Weather data not available",
-          morning: day.morning?.length ? ensureActivitiesFormat(day.morning) : [{
-            time: "Morning",
-            name: "Data not available",
-            description: "Activity details could not be generated",
-            location: "N/A",
-            cost: 0,
-            weatherDependent: false
-          }],
-          afternoon: day.afternoon?.length ? ensureActivitiesFormat(day.afternoon) : [{
-            time: "Afternoon",
-            name: "Data not available",
-            description: "Activity details could not be generated",
-            location: "N/A",
-            cost: 0,
-            weatherDependent: false
-          }],
-          evening: day.evening?.length ? ensureActivitiesFormat(day.evening) : [{
-            time: "Evening",
-            name: "Data not available",
-            description: "Activity details could not be generated",
-            location: "N/A",
-            cost: 0,
-            weatherDependent: false
-          }]
+          activities: day.activities?.length 
+            ? ensureActivitiesFormat(day.activities)
+            : // Fallback: Try to combine old morning/afternoon/evening format if available
+              Array.isArray(day.morning) || Array.isArray(day.afternoon) || Array.isArray(day.evening)
+              ? [
+                  ...(Array.isArray(day.morning) ? ensureActivitiesFormat(day.morning) : []),
+                  ...(Array.isArray(day.afternoon) ? ensureActivitiesFormat(day.afternoon) : []),
+                  ...(Array.isArray(day.evening) ? ensureActivitiesFormat(day.evening) : [])
+                ] 
+              : [defaultActivity]
         })) : 
         defaultDailyItinerary,
       
       // Accommodations with appropriate fallbacks
       accommodations: parsedData.accommodations?.length ? 
-        parsedData.accommodations.map((acc: any) => ({
-          name: acc.name || "Accommodation data not available",
-          description: acc.description || "Description not available",
-          location: acc.location || "Location not specified",
-          price: acc.price || 0,
-          rating: acc.rating || 0,
-          image: acc.image || "https://images.unsplash.com/photo-1566073771259-6a8506099945",
-          amenities: (acc.amenities || []).map((amenity: any) => ({
-            name: typeof amenity === 'string' ? amenity : (amenity.name || "Amenity"),
-            icon: null // Will be processed later
-          }))
-        })) : 
+        processAccommodations(parsedData.accommodations) : 
         [{
           name: "Accommodation data not available",
           description: "Accommodation details could not be generated",
@@ -438,43 +559,50 @@ const parseResponseToItinerary = (response: any, tripData: TripData): GeneratedI
           price: 0,
           rating: 0,
           image: "https://images.unsplash.com/photo-1566073771259-6a8506099945",
-          amenities: [{ name: "Data not available", icon: null }]
+          amenities: [{ name: "Data not available", icon: null }],
+          nearbyAttractions: [],
+          transportationOptions: []
         }],
       
       // Transport options with fallbacks
-      transportOptions: parsedData.transportOptions || {
-        flight: [],
-        train: [],
-        car: [],
-        bus: [],
-        publicTransit: []
+      transportOptions: {
+        flight: parsedData.transportOptions?.flight || [],
+        train: parsedData.transportOptions?.train || [],
+        car: parsedData.transportOptions?.car || [],
+        bus: parsedData.transportOptions?.bus || [],
+        publicTransit: parsedData.transportOptions?.publicTransit || [],
+        localTransportation: parsedData.transportOptions?.localTransportation ? 
+          processLocalTransportation(parsedData.transportOptions.localTransportation) : []
       },
       
       // Budget breakdown with fallbacks
-      budgetBreakdown: parsedData.budgetBreakdown || {
-        totalBudget: tripData.budget,
-        totalSpent: 0,
-        categories: [
-          { name: "Accommodation", amount: 0, percentage: 0 },
-          { name: "Food", amount: 0, percentage: 0 },
-          { name: "Activities", amount: 0, percentage: 0 },
-          { name: "Transportation", amount: 0, percentage: 0 },
-          { name: "Data not available", amount: tripData.budget, percentage: 100 }
-        ],
-        contingencyAmount: 0
+      budgetBreakdown: {
+        totalBudget: parsedData.budgetBreakdown?.totalBudget || tripData.budget,
+        totalSpent: parsedData.budgetBreakdown?.totalSpent || 0,
+        categories: parsedData.budgetBreakdown?.categories?.length ? 
+          processBudgetCategories(parsedData.budgetBreakdown.categories) : 
+          [
+            { name: "Accommodation", amount: 0, percentage: 0 },
+            { name: "Food", amount: 0, percentage: 0 },
+            { name: "Activities", amount: 0, percentage: 0 },
+            { name: "Transportation", amount: 0, percentage: 0 },
+            { name: "Data not available", amount: tripData.budget, percentage: 100 }
+          ],
+        contingencyAmount: parsedData.budgetBreakdown?.contingencyAmount || 0,
+        localCurrencyInfo: parsedData.budgetBreakdown?.localCurrencyInfo ? {
+          currency: parsedData.budgetBreakdown.localCurrencyInfo.currency || "USD",
+          exchangeRate: parsedData.budgetBreakdown.localCurrencyInfo.exchangeRate || "Not available",
+          paymentTips: parsedData.budgetBreakdown.localCurrencyInfo.paymentTips || "Not available"
+        } : undefined
       },
       
       // Packing list with fallbacks
       packingList: parsedData.packingList?.length ? 
-        parsedData.packingList.map((category: any) => ({
-          category: category.category || "Packing category",
-          items: category.items || ["Data not available"],
-          icon: null // Will be processed later
-        })) : 
+        processPackingList(parsedData.packingList) : 
         [
-          { category: "Essentials", items: ["Data not available"], icon: null },
-          { category: "Clothing", items: ["Data not available"], icon: null },
-          { category: "Other", items: ["Packing list data could not be generated"], icon: null }
+          { category: "Essentials", items: [{ name: "Data not available", essential: false, weatherConsideration: null, packingTip: null }], icon: null },
+          { category: "Clothing", items: [{ name: "Data not available", essential: false, weatherConsideration: null, packingTip: null }], icon: null },
+          { category: "Other", items: [{ name: "Packing list data could not be generated", essential: false, weatherConsideration: null, packingTip: null }], icon: null }
         ]
     };
     
@@ -488,33 +616,18 @@ const parseResponseToItinerary = (response: any, tripData: TripData): GeneratedI
     const dayCount = Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24)) + 1;
     
     const defaultDailyItinerary: DayItinerary[] = [];
+    
     for (let i = 0; i < dayCount; i++) {
       const currentDate = new Date(startDate);
       currentDate.setDate(startDate.getDate() + i);
       
       defaultDailyItinerary.push({
         date: `Day ${i + 1} - ${currentDate.toLocaleDateString()}`,
-        weather: "Data not available",
-        morning: [{
-          time: "Morning",
-          name: "Error occurred",
-          description: "There was an error generating this data. Please try again later.",
-          location: "N/A",
-          cost: 0,
-          weatherDependent: false
-        }],
-        afternoon: [{
-          time: "Afternoon",
-          name: "Error occurred",
-          description: "There was an error generating this data. Please try again later.",
-          location: "N/A",
-          cost: 0,
-          weatherDependent: false
-        }],
-        evening: [{
-          time: "Evening",
-          name: "Error occurred",
-          description: "There was an error generating this data. Please try again later.",
+        weather: "Weather data not available",
+        activities: [{
+          time: "Not available",
+          name: "Data not available",
+          description: "Activity details could not be generated",
           location: "N/A",
           cost: 0,
           weatherDependent: false
@@ -543,7 +656,8 @@ const parseResponseToItinerary = (response: any, tripData: TripData): GeneratedI
         train: [],
         car: [],
         bus: [],
-        publicTransit: []
+        publicTransit: [],
+        localTransportation: []
       },
       budgetBreakdown: {
         totalBudget: tripData.budget,
@@ -554,47 +668,10 @@ const parseResponseToItinerary = (response: any, tripData: TripData): GeneratedI
         contingencyAmount: 0
       },
       packingList: [
-        { category: "Error", items: ["There was an error generating packing list data"], icon: null }
+        { category: "Error", items: [{ name: "There was an error generating packing list data", essential: false, weatherConsideration: null, packingTip: null }], icon: null }
       ]
     };
   }
-};
-
-// Helper function to ensure activities have the correct format
-const ensureActivitiesFormat = (activities: any[]): any[] => {
-  if (!activities || !Array.isArray(activities) || activities.length === 0) {
-    return [{
-      time: "Time not specified",
-      name: "Data not available",
-      description: "Activity details could not be generated",
-      location: "N/A",
-      cost: 0,
-      weatherDependent: false
-    }];
-  }
-  
-  return activities.map(activity => {
-    // Ensure activity is an object
-    if (!activity || typeof activity !== 'object') {
-      return {
-        time: "Time not specified",
-        name: "Invalid activity data",
-        description: "Activity details could not be generated",
-        location: "N/A",
-        cost: 0,
-        weatherDependent: false
-      };
-    }
-    
-    return {
-      time: activity.time ?? "Time not specified",
-      name: activity.name ?? "Activity name not available",
-      description: activity.description ?? "No description available",
-      location: activity.location ?? "Location not specified",
-      cost: typeof activity.cost === 'number' ? activity.cost : 0,
-      weatherDependent: typeof activity.weatherDependent === 'boolean' ? activity.weatherDependent : false
-    };
-  });
 };
 
 export type { GeneratedItinerary, TripData };

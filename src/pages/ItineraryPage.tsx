@@ -350,13 +350,14 @@ const ItineraryPage: React.FC = () => {
           </TabsContent>
           
               <TabsContent value="budget">
-            <BudgetSection
+                <BudgetSection
                   totalBudget={itinerary.budgetBreakdown?.totalBudget || 0} 
                   totalSpent={itinerary.budgetBreakdown?.totalSpent || 0}
                   categories={itinerary.budgetBreakdown?.categories || []}
                   contingencyAmount={itinerary.budgetBreakdown?.contingencyAmount || 0}
-            />
-          </TabsContent>
+                  localCurrencyInfo={itinerary.budgetBreakdown?.localCurrencyInfo}
+                />
+              </TabsContent>
           
               <TabsContent value="packing">
             <PackingSection 

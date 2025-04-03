@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -6,13 +5,18 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Sun, Umbrella, CreditCard, Shirt, Heart, Plug } from 'lucide-react';
 
-interface PackingCategory {
+interface PackingItem {
   name: string;
+  essential: boolean;
+  weatherConsideration?: string | null;
+  packingTip?: string | null;
+}
+
+interface PackingCategory {
+  category: string;
   icon: React.ReactNode;
-  items: {
-    name: string;
-    essential: boolean;
-  }[];
+  items: PackingItem[];
+  categoryNotes?: string | null;
 }
 
 interface PackingSectionProps {
@@ -54,28 +58,35 @@ const PackingSection: React.FC<PackingSectionProps> = ({ categories, weatherSumm
         </Card>
         
         {/* Packing Categories */}
-        <Tabs defaultValue={categories[0]?.name || "essentials"} className="w-full">
+        <Tabs defaultValue={categories[0]?.category || "essentials"} className="w-full">
           <TabsList className="w-full mb-6 grid grid-cols-3 md:grid-cols-6">
-            {categories.map((category) => (
+            {categories.map((cat) => (
               <TabsTrigger 
-                key={category.name} 
-                value={category.name}
+                key={cat.category} 
+                value={cat.category}
                 className="flex flex-col items-center py-3 px-2 space-y-2 text-xs"
               >
-                {category.icon}
-                <span>{category.name}</span>
+                {cat.icon}
+                <span>{cat.category}</span>
               </TabsTrigger>
             ))}
           </TabsList>
           
-          {categories.map((category) => (
-            <TabsContent key={category.name} value={category.name} className="space-y-4">
+          {categories.map((cat) => (
+            <TabsContent key={cat.category} value={cat.category} className="space-y-4">
+              {cat.categoryNotes && (
+                <div className="mb-4 p-3 bg-gray-50 border rounded-md text-sm text-gray-700">
+                  <p className="font-medium mb-1">Category Tips:</p>
+                  <p>{cat.categoryNotes}</p>
+                </div>
+              )}
+              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {category.items.map((item, index) => (
+                {cat.items.map((item, index) => (
                   <div 
                     key={index} 
                     className={`flex items-start space-x-3 p-3 rounded-md transition-colors
-                      ${checkedItems[`${category.name}-${item.name}`] 
+                      ${checkedItems[`${cat.category}-${item.name}`] 
                         ? 'bg-gray-50' 
                         : item.essential 
                           ? 'bg-amber-50 border border-amber-100' 
@@ -83,20 +94,39 @@ const PackingSection: React.FC<PackingSectionProps> = ({ categories, weatherSumm
                       }`}
                   >
                     <Checkbox 
-                      id={`${category.name}-${item.name}`}
-                      checked={checkedItems[`${category.name}-${item.name}`] || false}
-                      onCheckedChange={() => handleItemCheck(category.name, item.name)}
+                      id={`${cat.category}-${item.name}`}
+                      checked={checkedItems[`${cat.category}-${item.name}`] || false}
+                      onCheckedChange={() => handleItemCheck(cat.category, item.name)}
                     />
-                    <div className="space-y-1">
-                      <Label 
-                        htmlFor={`${category.name}-${item.name}`}
-                        className={`font-medium ${item.essential ? 'text-amber-800' : ''}`}
-                      >
-                        {item.name}
-                        {item.essential && (
-                          <span className="ml-2 text-xs text-amber-600 font-normal">Essential</span>
-                        )}
-                      </Label>
+                    <div className="space-y-1 w-full">
+                      <div className="flex justify-between items-start">
+                        <Label 
+                          htmlFor={`${cat.category}-${item.name}`}
+                          className={`font-medium ${item.essential ? 'text-amber-800' : ''}`}
+                        >
+                          {item.name}
+                          {item.essential && (
+                            <span className="ml-2 text-xs text-amber-600 font-normal">Essential</span>
+                          )}
+                        </Label>
+                      </div>
+                      
+                      {(item.weatherConsideration || item.packingTip) && (
+                        <div className="text-xs mt-1 space-y-1">
+                          {item.weatherConsideration && (
+                            <div className="flex items-start">
+                              <span className="text-blue-500 mr-1 font-medium">Weather:</span>
+                              <p className="text-gray-600">{item.weatherConsideration}</p>
+                            </div>
+                          )}
+                          {item.packingTip && (
+                            <div className="flex items-start">
+                              <span className="text-emerald-500 mr-1 font-medium">Tip:</span>
+                              <p className="text-gray-600">{item.packingTip}</p>
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}

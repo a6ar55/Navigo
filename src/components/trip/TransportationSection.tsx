@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Plane, Train, Car, Bus, Clock, DollarSign, MapPin } from 'lucide-react';
+import { Plane, Train, Car, Bus, Clock, DollarSign, MapPin, Calendar, Info, AlertCircle, Ticket, Clock3 } from 'lucide-react';
 
 interface TransportOption {
   type: 'flight' | 'train' | 'car' | 'bus' | 'publicTransit';
@@ -15,6 +14,18 @@ interface TransportOption {
   departureLocation: string;
   arrivalLocation: string;
   details: string;
+  recommendedBookingTime?: string;
+}
+
+interface LocalTransportation {
+  type: string;
+  coverage: string;
+  costPerTrip: number;
+  dayPassOption: number;
+  frequency: string;
+  operatingHours: string;
+  accessibility: string;
+  tipsForTravelers: string;
 }
 
 interface TransportationSectionProps {
@@ -24,6 +35,7 @@ interface TransportationSectionProps {
     car?: TransportOption[];
     bus?: TransportOption[];
     publicTransit?: TransportOption[];
+    localTransportation?: LocalTransportation[];
   };
 }
 
@@ -35,6 +47,7 @@ const TransportationSection: React.FC<TransportationSectionProps> = ({ transport
     if (transportOptions.car && transportOptions.car.length > 0) return 'car';
     if (transportOptions.bus && transportOptions.bus.length > 0) return 'bus';
     if (transportOptions.publicTransit && transportOptions.publicTransit.length > 0) return 'publicTransit';
+    if (transportOptions.localTransportation && transportOptions.localTransportation.length > 0) return 'localTransportation';
     return 'flight'; // Default fallback
   };
 
@@ -75,6 +88,12 @@ const TransportationSection: React.FC<TransportationSectionProps> = ({ transport
               <TabsTrigger value="publicTransit" className="flex items-center space-x-2">
                 <Bus className="h-4 w-4" />
                 <span>Public Transit</span>
+              </TabsTrigger>
+            )}
+            {transportOptions.localTransportation && transportOptions.localTransportation.length > 0 && (
+              <TabsTrigger value="localTransportation" className="flex items-center space-x-2">
+                <Ticket className="h-4 w-4" />
+                <span>Local Options</span>
               </TabsTrigger>
             )}
           </TabsList>
@@ -120,6 +139,15 @@ const TransportationSection: React.FC<TransportationSectionProps> = ({ transport
             <TabsContent value="publicTransit" className="space-y-4">
               {transportOptions.publicTransit.map((option, index) => (
                 <TransportCard key={index} option={option} />
+              ))}
+            </TabsContent>
+          )}
+          
+          {/* Local Transportation Tab */}
+          {transportOptions.localTransportation && transportOptions.localTransportation.length > 0 && (
+            <TabsContent value="localTransportation" className="space-y-4">
+              {transportOptions.localTransportation.map((option, index) => (
+                <LocalTransportCard key={index} option={option} />
               ))}
             </TabsContent>
           )}
@@ -194,10 +222,90 @@ const TransportCard: React.FC<{ option: TransportOption }> = ({ option }) => {
         
         <div className="text-sm text-gray-600 mt-2">{option.details}</div>
         
+        {option.recommendedBookingTime && (
+          <div className="mt-3 flex items-start text-xs text-amber-700 bg-amber-50 p-2 rounded-md">
+            <Calendar className="h-3 w-3 text-amber-600 mt-0.5 mr-1 flex-shrink-0" />
+            <span>Recommended booking: {option.recommendedBookingTime}</span>
+          </div>
+        )}
+        
         <div className="mt-4 flex justify-end">
           <button className="text-sm text-travel-primary hover:underline">
             View details
           </button>
+        </div>
+      </div>
+    </Card>
+  );
+};
+
+const LocalTransportCard: React.FC<{ option: LocalTransportation }> = ({ option }) => {
+  return (
+    <Card className="overflow-hidden border-l-4 border-l-emerald-500">
+      <div className="p-4">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-3">
+            <div className="bg-emerald-100 p-2 rounded-full">
+              {option.type.toLowerCase().includes('train') || option.type.toLowerCase().includes('metro') ? (
+                <Train className="h-5 w-5 text-emerald-600" />
+              ) : option.type.toLowerCase().includes('bus') ? (
+                <Bus className="h-5 w-5 text-emerald-600" />
+              ) : (
+                <Ticket className="h-5 w-5 text-emerald-600" />
+              )}
+            </div>
+            <div>
+              <h4 className="font-semibold capitalize">{option.type}</h4>
+              <div className="text-sm text-gray-600">{option.coverage}</div>
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="text-sm font-medium">
+              <span className="font-bold text-emerald-700">${option.costPerTrip.toFixed(2)}</span> per trip
+            </div>
+            <div className="text-sm font-medium">
+              <span className="font-bold text-emerald-700">${option.dayPassOption.toFixed(2)}</span> day pass
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div className="bg-gray-50 p-3 rounded-md">
+            <div className="flex items-center text-sm font-medium text-gray-700 mb-1">
+              <Clock3 className="h-4 w-4 mr-2 text-gray-500" />
+              Schedule Information
+            </div>
+            <div className="text-xs text-gray-600 space-y-1">
+              <div className="flex justify-between">
+                <span>Frequency:</span>
+                <span className="font-medium">{option.frequency}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Operating Hours:</span>
+                <span className="font-medium">{option.operatingHours}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 p-3 rounded-md">
+            <div className="flex items-center text-sm font-medium text-blue-700 mb-1">
+              <AlertCircle className="h-4 w-4 mr-2 text-blue-500" />
+              Accessibility
+            </div>
+            <div className="text-xs text-blue-600">
+              {option.accessibility}
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-amber-50 p-3 rounded-md mb-4">
+          <div className="flex items-center text-sm font-medium text-amber-700 mb-1">
+            <Info className="h-4 w-4 mr-2 text-amber-500" />
+            Traveler Tips
+          </div>
+          <div className="text-xs text-amber-600">
+            {option.tipsForTravelers}
+          </div>
         </div>
       </div>
     </Card>
