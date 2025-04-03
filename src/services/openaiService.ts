@@ -5,11 +5,11 @@ export const generateItinerary = async (tripData: TripData): Promise<GeneratedIt
   console.log('Generating itinerary based on:', JSON.stringify(tripData, null, 2));
   
   // Get the API key from environment variable
-  const geminiApiKey = 'AIzaSyAH8E1coLcuG43ZnCKfILipJgA5Fj5uewI';
+  const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY;
   
   if (!geminiApiKey) {
     console.error('Gemini API key is missing');
-    throw new Error('API key is required for Gemini model access');
+    throw new Error('API key is required for Gemini model access. Please check your environment variables.');
   }
 
   // Create a structured prompt for the Gemini model
